@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { UserService, UserController, UserModule } from '../users'
+import { UserController } from './controllers/user.controller';
+import { DatabaseModule } from './database/database.module';
+import { UserPresenter } from './presenters/user.presenter';
+import { UserService } from './users/user.service';
 
 @Module({
-  imports: [ConfigModule.forRoot(), UserModule],
-  controllers: [],
-  providers: [],
+  imports: [ConfigModule.forRoot(), DatabaseModule],
+  controllers: [UserController],
+  providers: [UserService, UserPresenter],
 })
-export class AppModule {
-  constructor() {
-    //TODO: initialize cities and countries
-  }
-}
+
+export class AppModule { }
