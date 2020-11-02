@@ -10,6 +10,14 @@ $ npm install
 
 ## Running the app
 
+To run the dockerized PG database
+
+```bash
+sh scripts/start-db.sh
+```
+
+Run the application
+
 ```bash
 # development
 $ npm run start
