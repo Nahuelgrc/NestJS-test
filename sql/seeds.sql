@@ -6,7 +6,8 @@ VALUES
     ('Egypt'),
     ('Ecuador'),
     ('England'),
-    ('France');
+    ('France'),
+    ('Netherlands')
 
 INSERT INTO
     City(countryId, name)
@@ -25,4 +26,5 @@ VALUES
     (5, 'Manchester'),
     (6, 'Paris'),
     (6, 'Lyon'),
-    (6, 'Nice');
+    (6, 'Nice'),
+    (7, 'Amsterdam');

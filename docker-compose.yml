@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 'my_pass'
+      POSTGRES_USER: 'myuser'
+      POSTGRES_DB: 'user-profile'
+    volumes:
+      - ./pgdata: /var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  redis:
+    container_name: redis
+    image: redis:6.0
+    ports:
+      - '6379:6379'
+    networks:
+      - nestjs-user-profile
+
+  nest-api:
+    image: user-profile
+    build:
+      context: .
+    depends_on:
+      - db
+      - redis
+    ports:
+      - ${PORT}:${PORT}
+    env_file:
+      - .env
+    networks:
+      - nestjs-user-profile
+
+networks:
+  nestjs-user-profile:
+    driver: bridge

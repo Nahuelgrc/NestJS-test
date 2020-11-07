@@ -3,6 +3,6 @@ import { CreateProfileModel } from '../models';
 
 export interface IUserService {
     createUserProfile(createProfile: CreateProfileModel): Promise<any>;
-    getUserProfile(userId: number): Promise<any>;
+    getUserProfileByUserId(userId: number): Promise<any>;
     updateUserProfile(updateProfile: UpdateProfileModel): Promise<any>;
 }

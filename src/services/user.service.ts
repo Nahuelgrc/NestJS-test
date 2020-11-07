@@ -1,11 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IUserService } from 'src/interfaces/IUserService';
-import { CreateProfileModel } from 'src/models';
-import { UpdateProfileModel } from 'src/models/updateProfile.model';
+import { IUserService } from '../interfaces/IUserService';
+import { CreateProfileModel, UpdateProfileModel } from '../models';
 
 @Injectable()
 export class UserService implements IUserService {
-  constructor(@Inject('PG_CONNECTION') private conn: any) { }
+  constructor(@Inject(process.env.DATABASE_PROVIDER) private conn: any) { }
 
   async updateUserProfile(updateProfileModel: UpdateProfileModel, updateAddress = false): Promise<any> {
     let table: string;
@@ -13,7 +12,7 @@ export class UserService implements IUserService {
       await this.conn.query('begin');
       if (updateAddress) {
         table = 'Address';
-        const res = await this.conn.query(`UPDATE`);
+        const res = await this.conn.query(`UPDATE `);
       }
       const res = await this.conn.query(`UPDATE PROFILE`);
       return res.rows[0];
@@ -24,13 +23,12 @@ export class UserService implements IUserService {
     }
   }
 
-  async getUserProfile(userId: number): Promise<any> {
-    let table: string;
+  async getUserProfileByUserId(userId: number): Promise<any> {
     try {
       const res = await this.conn.query(`SELECT pro.id, pro.name AS profileName, ad.street, ci.name as cityName, co.name as countryName FROM Profile pro INNER JOIN AppUser us ON pro.userId = us.id INNER JOIN Address ad ON pro.addressId = ad.id INNER JOIN City ci ON ad.cityId = ci.id INNER JOIN Country co ON ci.countryId = co.id AND us.id = ${userId};`);
       return res.rows[0];
     } catch (error) {
-      console.error(`Error while querying table - getUserProfile - Reason:`, error)
+      console.error(`Error while querying table on method getUserProfile - Reason:`, error)
       throw error;
     }
   }

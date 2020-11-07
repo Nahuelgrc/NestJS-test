@@ -22,18 +22,16 @@ export class UserController {
   @Get(':id')
   async getUserProfile(
     @Param('id') userId: number): Promise<any> {
-    return await this.userPresenter.getUser(userId);
+    return await this.userPresenter.getUserProfile(userId);
   }
 
   @Put()
   async updateUserProfile(
     @Body('userId') userId: number,
-    @Body('password') password: string,
     @Body('name') name: string,
     @Body('street') street: string,
     @Body('cityId') cityId: number,
     @Body('countryId') countryId: number): Promise<any> {
-    return await this.userPresenter.updateUser(userId, password, name, street, cityId, countryId);
+    return await this.userPresenter.updateUserProfile(userId, street, cityId, countryId);
   }
-
 }
