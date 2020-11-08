@@ -27,11 +27,10 @@ export class UserController {
 
   @Put()
   async updateUserProfile(
-    @Body('userId') userId: number,
+    @Body('userProfileId') userProfileId: number,
     @Body('name') name: string,
     @Body('street') street: string,
-    @Body('cityId') cityId: number,
-    @Body('countryId') countryId: number): Promise<any> {
-    return await this.userPresenter.updateUserProfile(userId, street, cityId, countryId);
+    @Body('cityId') cityId: number): Promise<any> {
+    return await this.userPresenter.updateUserProfile(userProfileId, name, street, cityId);
   }
 }

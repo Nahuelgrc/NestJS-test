@@ -7,7 +7,7 @@ VALUES
     ('Ecuador'),
     ('England'),
     ('France'),
-    ('Netherlands')
+    ('Netherlands');
 
 INSERT INTO
     City(countryId, name)

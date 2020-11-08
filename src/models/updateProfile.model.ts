@@ -1,13 +1,13 @@
 export class UpdateProfileModel {
-    userId: number;
+    userProfileId: number;
+    name: string;
     street: string;
     cityId: number;
-    countryId: number;
 
-    constructor(userId: number, street: string, cityId: number, countryId: number) {
-        this.userId = userId;
+    constructor(userProfileId: number, name: string, street: string, cityId: number) {
+        this.userProfileId = userProfileId;
+        this.name = name;
         this.street = street;
         this.cityId = cityId;
-        this.countryId = countryId;
     };
 }
