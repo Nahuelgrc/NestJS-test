@@ -1,39 +1,37 @@
 version: '3.8'
 services:
-  postgres:
-    container_name: postgres
-    image: postgres
-    environment:
-      POSTGRES_PASSWORD: 'my_pass'
-      POSTGRES_USER: 'myuser'
-      POSTGRES_DB: 'user-profile'
-    volumes:
-      - ./pgdata: /var/lib/postgresql/data
-    ports:
-      - '5432:5432'
+    database:
+        image: postgres:13
+        container_name: postgres-app
+        environment:
+            POSTGRES_DB: user-profile
+            POSTGRES_USER: myuser
+            POSTGRES_PASSWORD: mypass
+        ports:
+            - 5432:5432
+        volumes:
+            - user-profile-vol:/var/lib/postgresql/data
 
-  redis:
-    container_name: redis
-    image: redis:6.0
-    ports:
-      - '6379:6379'
-    networks:
-      - nestjs-user-profile
+    # cache:
+    #     image: redis:6.0
+    #     container_name: redis-app
+    #     ports:
+    #         - 6379:6379
 
-  nest-api:
-    image: user-profile
-    build:
-      context: .
-    depends_on:
-      - db
-      - redis
-    ports:
-      - ${PORT}:${PORT}
-    env_file:
-      - .env
-    networks:
-      - nestjs-user-profile
+    # app:
+    #     container_name: nest-app
+    #     restart: always
+    #     build: .
+    #     ports:
+    #         - '80:3000'
+    #     links:
+    #         - database
+    #         - cache
+    #     depends_on:
+    #         - database
+    #         - cache
+    #     env_file:
+    #         - .env
 
-networks:
-  nestjs-user-profile:
-    driver: bridge
+volumes:
+    user-profile-vol:
