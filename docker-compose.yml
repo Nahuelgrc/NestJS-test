@@ -11,12 +11,14 @@ services:
             - 5432:5432
         volumes:
             - user-profile-vol:/var/lib/postgresql/data
+            - ./sql/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+            - ./sql/data.sql:/docker-entrypoint-initdb.d/2-data.sql
 
-    # cache:
-    #     image: redis:6.0
-    #     container_name: redis-app
-    #     ports:
-    #         - 6379:6379
+    cache:
+        image: redis:6.0
+        container_name: redis-app
+        ports:
+            - 6379:6379
 
     # app:
     #     container_name: nest-app

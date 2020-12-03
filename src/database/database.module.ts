@@ -7,7 +7,7 @@ const dbProvider = {
         user: 'myuser',
         host: 'localhost',
         database: 'user-profile',
-        password: 'mypassword',
+        password: 'mypass',
         port: 5432,
     }),
 };
